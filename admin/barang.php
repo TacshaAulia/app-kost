@@ -10,7 +10,7 @@ $message = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['action'])) {
         if ($_POST['action'] == 'add_barang') {
-            $nama = $_POST['nama'];
+            $nama = $_POST['nama barang'];
             $harga = $_POST['harga'];
             
             $query = "INSERT INTO tb_barang (nama, harga) VALUES (?, ?)";
