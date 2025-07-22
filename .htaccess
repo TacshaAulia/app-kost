@@ -1,0 +1,78 @@
+# Keamanan dan Konfigurasi Web Server
+# Sistem Pengelolaan Kos
+
+# Aktifkan rewrite engine
+RewriteEngine On
+
+# Redirect ke HTTPS (uncomment jika menggunakan SSL)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Proteksi file konfigurasi
+<Files "config/*">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Proteksi file database
+<Files "*.sql">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Proteksi file .htaccess
+<Files ".htaccess">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Proteksi file README
+<Files "README.md">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Set default charset
+AddDefaultCharset UTF-8
+
+# Enable compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# Set cache headers
+<IfModule mod_expires.c>
+    ExpiresActive on
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+</IfModule>
+
+# Error pages
+ErrorDocument 404 /index.php
+ErrorDocument 403 /index.php
+
+# Prevent access to sensitive files
+<FilesMatch "\.(log|txt|md|sql|ini|conf)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Security headers
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule> 
