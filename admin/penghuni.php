@@ -10,7 +10,7 @@ $message = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['action'])) {
         if ($_POST['action'] == 'add') {
-            $nama = $_POST['nama'];
+            $nama = $_POST['nama lengkap'];
             $no_ktp = $_POST['no_ktp'];
             $no_hp = $_POST['no_hp'];
             $tgl_masuk = $_POST['tgl_masuk'];
